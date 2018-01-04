@@ -1,2 +1,2 @@
 # k8s
-fucker yourself!
+kubernetes notes
