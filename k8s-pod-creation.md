@@ -3,6 +3,9 @@
 
 ![pod](http://img.blog.csdn.net/20141030000701946?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmdqdW4yOTE1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)  
 
+注：kubectl，包括kubecfg、kubectl.sh、kubecfg.sh等  
+> http://www.csdn.net/article/2014-12-24/2823292-Docker-Kubernetes
+
 具体的创建步骤包括：
 - 客户端提交创建请求，可以通过API Server的Restful API，也可以使用kubectl命令行工具。支持的数据类型包括JSON和YAML。
 - API Server处理用户请求，存储Pod数据到etcd。
