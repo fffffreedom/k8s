@@ -161,7 +161,7 @@ kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
 kubectl get node
 ```
 - 部署dashboard  
-下载yaml文件，1.7版本之后的dashboard提升了安全性，我们找到1.6.3版本的yaml文件：  
+下载yaml文件，1.7版本之后的dashboard提升了安全性，安装时会出问题。我们找到1.6.3版本的yaml文件：  
 https://github.com/kubernetes/dashboard/tree/v1.6.3/src/deploy/kubernetes-dashboard.yaml  
 要想在window下登录dashboard的web界面，需要将服务暴露出来：  
 ```
