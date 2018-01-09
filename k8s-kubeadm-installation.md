@@ -114,6 +114,10 @@ You can now join any number of machines by running the following on each node
 as root:
   kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
 ```
+安装网络插件：
+```
+kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+```
 运行命令查看master是否安装成安装：
 ```
 [root@k8s-master ~]# kubectl get pods --all-namespaces
