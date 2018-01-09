@@ -31,9 +31,14 @@ enabled=1
 gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
 EOF
+```
+查看可用版本：  
+`yum list --showduplicates |grep docker | sort -r`  
+安装docker:  
+```
 yum install -y docker-engine.x86_64-1.12.6-1.el7.centos
 ```
-- 安装kubelet kubeadm kubectl   
+- 安装kubelet kubeadm kubectl   
 配置kubernets yum源：  
 ```
 cat << EOF > /etc/yum.repos.d/kubernetes.repo
