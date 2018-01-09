@@ -64,7 +64,7 @@ dockre pull quay.io/calico/node:v2.4.1
 docker pull quay.io/calico/cni:v1.10.0
 docker pull quay.io/coreos/etcd:v3.1.10
 ```
-- kubeadm
+- kubeadm (master only)
 ```
 kubeadm init --kubernetes-version=v1.7.2 \
     --pod-network-cidr=192.168.0.0/16 \
@@ -143,6 +143,7 @@ kube-system   kube-proxy-r8xc0                           1/1       Running   0  
 kube-system   kube-proxy-wxwjr                           1/1       Running   0          43m
 kube-system   kube-scheduler-k8s-master                  1/1       Running   0          54m
 ```
+- node加入集群
 master正常之后，到节点云运行加入集群的命令：
 ```
 kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
