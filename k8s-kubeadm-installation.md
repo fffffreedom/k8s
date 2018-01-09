@@ -150,13 +150,13 @@ kubectl get node
 https://kubernetes.io/docs/setup/independent/install-kubeadm/  
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/  
 https://v1-7.docs.kubernetes.io/docs/admin/kubeadm/  
-使用kubeadm安装Kubernetes 1.7 --步骤清晰
+使用kubeadm安装Kubernetes 1.7 --步骤清晰  
 https://blog.frognew.com/2017/07/kubeadm-install-kubernetes-1.7.html  
 CentOS7.3利用kubeadm安装kubernetes1.7.3完整版(官方文档填坑篇)  
 http://www.cnblogs.com/liangDream/p/7358847.html  
 Kubeadm安装Kubernetes环境 --查找镜像  
-http://www.cnblogs.com/ericnie/p/7749588.html 
-Kubeadm部署k8s(资源已有) --如何排错 and stat /etc/kubernetes/kubelet.conf: no such file or directory
+http://www.cnblogs.com/ericnie/p/7749588.html  
+Kubeadm部署k8s(资源已有) --如何排错 and stat /etc/kubernetes/kubelet.conf: no such file or directory  
 http://www.winseliu.com/blog/2017/08/13/kubeadm-install-k8s-on-centos7-with-resources/  
 http://tonybai.com/2017/05/15/setup-a-ha-kubernetes-cluster-based-on-kubeadm-part1/  
 ## TODO
