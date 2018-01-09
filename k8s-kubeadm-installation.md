@@ -192,7 +192,7 @@ kubectl get svc --all-namespaces
 
 ## 问题
 - 在node运行kubectl命令出错
-`The connection to the server localhost:8080 was refused - did you specify the right host or port?`
+`The connection to the server localhost:8080 was refused - did you specify the right host or port?`  
 需要在所有节点上运行下面的命令（admin.conf只会在运行了kubeadm init的节点上生成，需要将其拷贝到其它节点）
 ```
 mkdir -p $HOME/.kube
