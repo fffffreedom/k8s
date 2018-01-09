@@ -104,7 +104,7 @@ To start using your cluster, you need to run (as a regular user):
 
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown (id -u):(id -g) $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
@@ -114,11 +114,17 @@ You can now join any number of machines by running the following on each node
 as root:
   kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
 ```
+按照上面的提示，运行：
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
 安装网络插件：
 ```
 kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 ```
-运行命令查看master是否安装成安装：
+运行命令查看master是否安装完成：
 ```
 [root@k8s-master ~]# kubectl get pods --all-namespaces
 NAMESPACE     NAME                                       READY     STATUS    RESTARTS   AGE
@@ -144,6 +150,16 @@ kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
 查看所有节点是否正常：
 ```
 kubectl get node
+```
+## 问题
+- 在node运行kubectl命令出错
+`The connection to the server localhost:8080 was refused - did you specify the right host or port?`
+需要在所有节点上运行下面的命令（admin.conf只会在运行了kubeadm init的节点上生成，需要将其拷贝到其它节点）
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#要在(id -u):(id -g)括号前加上$，否则会报错
+chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 ## 参考
 官方  
