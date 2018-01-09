@@ -1,5 +1,6 @@
 # k8s-kubeadm-installation
-- 设置服务器或者虚拟机的hostname  
+## 安装过程
+- 设置服务器或者虚拟机的hostname  
 - 配置/etc/hosts  
 - 关闭防火墙
 ```
@@ -20,12 +21,20 @@ EOF
 sysctl --system
 ```
 - 安装docker
+配置yum源：  
 ```
-yum list | grep docker | sort -r
-yum install -y kubeadm kubelet kubectl
+cat << EOF > /etc/yum.repos.d/docker.repo
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
 yum install -y docker-engine.x86_64-1.12.6-1.el7.centos
 ```
-- 配置kubernets yum源
+- 安装kubelet kubeadm kubectl   
+配置kubernets yum源：  
 ```
 cat << EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -34,9 +43,8 @@ baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=0
 EOF
-```
-- 安装kubelet kubeadm kubectl
-```
+
+# 安装kubelet kubeadm kubectl
 yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 ```
@@ -152,6 +160,36 @@ kubeadm join --token bbe302.4f8c0f0f740c052e 10.101.17.74:6443
 ```
 kubectl get node
 ```
+- 部署dashboard  
+下载yaml文件，1.7版本之后的dashboard提升了安全性，我们找到1.6.3版本的yaml文件：  
+https://github.com/kubernetes/dashboard/tree/v1.6.3/src/deploy/kubernetes-dashboard.yaml  
+要想在window下登录dashboard的web界面，需要将服务暴露出来：  
+```
+# 这里的image版本原为1.6.3，修改为本地已有的dashboard版本
+image: gcr.io/google_containers/kubernetes-dashboard-amd64:v1.6.1
+# 暴露服务
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  type: NodePort  <--
+  ports:
+  - port: 80
+    targetPort: 9090
+    nodePort: 30000  <--
+  selector:
+    k8s-app: kubernetes-dashboard
+```
+然后运行命令， 创建dashboard：  
+```
+kubectl create -f kubernetes-dashboard.yaml
+kubectl get svc --all-namespaces
+```
+
 ## 问题
 - 在node运行kubectl命令出错
 `The connection to the server localhost:8080 was refused - did you specify the right host or port?`
