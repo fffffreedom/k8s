@@ -1,6 +1,6 @@
 # k8s-deploy
 ## Picking the Right Solution
-k8s安装有好多种方法，官网给出了不同情况下，应该选用的安装方式，值得细读！ 
+k8s安装有好多种方法，官网给出了不同情况下，应该选用的安装方式，值得细读！  
 https://kubernetes.io/docs/setup/pick-right-solution/  
 ```
 Local-machine Solutions
@@ -16,7 +16,10 @@ Custom Solutions
 Table of Solutions
   Definition of columns
 ```
-官网给出的例子中，centos 7.x上安装的没有，不靠谱啊~
+官网给出的例子中，centos 7.x上安装的没有，不靠谱啊~  
+## Creating a Custom Cluster from Scratch
+https://kubernetes.io/docs/getting-started-guides/scratch/  
+
 ## ansible deployment
 https://github.com/kubernetes-incubator/kubespray
 ## Kubernetes单机安装部署
