@@ -228,7 +228,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 https://kubernetes.io/docs/setup/independent/install-kubeadm/  
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/  
 https://v1-7.docs.kubernetes.io/docs/admin/kubeadm/  
-使用kubeadm安装Kubernetes 1.7 --步骤清晰+heapster插件部署
+使用kubeadm安装Kubernetes 1.7 --步骤清晰+heapster插件部署  
 https://blog.frognew.com/2017/07/kubeadm-install-kubernetes-1.7.html  
 CentOS7.3利用kubeadm安装kubernetes1.7.3完整版(官方文档填坑篇)  
 http://www.cnblogs.com/liangDream/p/7358847.html  
