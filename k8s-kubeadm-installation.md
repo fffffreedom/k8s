@@ -194,7 +194,25 @@ spec:
 kubectl create -f kubernetes-dashboard.yaml
 kubectl get svc --all-namespaces
 ```
+- 部署heapster插件
+下面安装Heapster为集群添加使用统计和监控功能，为Dashboard添加仪表盘。 使用InfluxDB做为Heapster的后端存储，开始部署：
+```
+mkdir -p ~/k8s/heapster
+cd ~/k8s/heapster
+wget https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/grafana.yaml
+wget https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/rbac/heapster-rbac.yaml
+wget https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
+wget https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml
 
+kubectl create -f ./
+# 创建后，有三个yaml会因为拉不到镜像而失败！先用kubectl describe查看是哪些镜像拉取失败。
+# 由于被墙（草你妈的GCD），需要到 https://hub.docker.com/u/wanghkkk/ 搜索相应的镜像
+# 下载及并打tag，例如：
+docker pull wanghkkk/heapster-grafana-amd64-v4.4.3:v4.4.3
+docker tag wanghkkk/heapster-grafana-amd64-v4.4.3:v4.4.3 k8s.gcr.io/heapster-grafana-amd64:v4.4.3
+# 下载完所需要镜像之后，容器会自动running
+```
+最后确认所有的pod都处于running状态，打开Dashboard,集群的使用统计会以仪表盘的形式显示出来。
 ## 问题
 - 在node运行kubectl命令出错
 `The connection to the server localhost:8080 was refused - did you specify the right host or port?`  
@@ -210,7 +228,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 https://kubernetes.io/docs/setup/independent/install-kubeadm/  
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/  
 https://v1-7.docs.kubernetes.io/docs/admin/kubeadm/  
-使用kubeadm安装Kubernetes 1.7 --步骤清晰  
+使用kubeadm安装Kubernetes 1.7 --步骤清晰+heapster插件部署
 https://blog.frognew.com/2017/07/kubeadm-install-kubernetes-1.7.html  
 CentOS7.3利用kubeadm安装kubernetes1.7.3完整版(官方文档填坑篇)  
 http://www.cnblogs.com/liangDream/p/7358847.html  
