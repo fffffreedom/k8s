@@ -214,8 +214,11 @@ docker tag wanghkkk/heapster-grafana-amd64-v4.4.3:v4.4.3 k8s.gcr.io/heapster-gra
 ```
 最后确认所有的pod都处于running状态，打开Dashboard,集群的使用统计会以仪表盘的形式显示出来。
 ## 问题
-- 在node运行kubectl命令出错
-`The connection to the server localhost:8080 was refused - did you specify the right host or port?`  
+- 在node节点上运行kubectl命令出错  
+错误信息如下：  
+```
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+```
 需要在所有节点上运行下面的命令（admin.conf只会在运行了kubeadm init的节点上生成，需要将其拷贝到其它节点）
 ```
 mkdir -p $HOME/.kube
