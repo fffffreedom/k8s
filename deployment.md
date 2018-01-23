@@ -1,7 +1,8 @@
 # Rolling Update
 The preferred way to create a replicated application is to use a **Deployment**.  
-
+官网资料  
 https://tachingchen.com/tw/blog/kubernetes-rolling-update-with-deployment/  
+透過 KUBERNETES DEPLOYMENTS 實現滾動升級  
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/  
 
 ## Creating a Deployment
