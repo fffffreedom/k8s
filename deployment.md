@@ -228,11 +228,11 @@ All actions that apply to a complete Deployment also apply to a failed Deploymen
 You can scale it up/down, roll back to a previous revision, 
 or even pause it if you need to apply multiple tweaks in the Deployment pod template.  
 ## Clean up Policy
-You can set .spec.revisionHistoryLimit field in a Deployment to specify how many old ReplicaSets 
+You can set `.spec.revisionHistoryLimit` field in a Deployment to specify how many old ReplicaSets 
 for this Deployment you want to retain. The rest will be garbage-collected in the background. 
 By default, all revision history will be kept. In a future version, it will default to switch to 2.  
 > Note: Explicitly setting this field to 0, will result in cleaning up all the history 
-of your Deployment thus that Deployment will not be able to roll back.  
+of your Deployment thus that Deployment will not be able to roll back. (设置为0，将会导致无法回滚！) 
 ## Writing a Deployment Spec
 > https://kubernetes.io/docs/concepts/workloads/controllers/deployment/  
 
