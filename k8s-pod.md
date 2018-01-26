@@ -84,26 +84,28 @@ Each probe has one of three results:
 Indicates whether the Container is running. If the liveness probe fails, the kubelet kills the Container, and the Container is subjected to its restart policy. If a Container does not provide a liveness probe, the default state is Success.
   - readinessProbe  
 Indicates whether the Container is ready to service requests. If the readiness probe fails, the endpoints controller removes the Pod’s IP address from the endpoints of all Services that match the Pod. The default state of readiness before the initial delay is Failure. If a Container does not provide a readiness probe, the default state is Success.  
-- When should you use liveness or readiness probes?  
-If the process in your Container is able to crash on its own whenever it encounters an issue or becomes unhealthy, you do not necessarily need a liveness probe; the kubelet will automatically perform the correct action in accordance with the Pod’s restartPolicy.  
-即当程序可以在碰到问题或者不健康时自动crash，那就不需要liveness probe了，因为kubelet会根据pod的restartPolicy自动做出正常的行为。  
+### When should you use liveness or readiness probes?  
+If the process in your Container is able to crash on its own whenever it encounters an issue or becomes unhealthy, you do not necessarily need a liveness probe; the kubelet will automatically perform the correct action in accordance with the Pod’s restartPolicy. 即当程序可以在碰到问题或者不健康时自动crash，那就不需要liveness probe了，因为kubelet会根据pod的restartPolicy自动做出正常的行为。  
+
 If you’d like your Container to be killed and restarted if a probe fails, then specify a liveness probe, and specify a restartPolicy of Always or OnFailure.  
+
 If you’d like to start sending traffic to a Pod only when a probe succeeds, specify a readiness probe.  
 readiness probe in the spec means that the Pod will start without receiving any traffic and only start receiving traffic after the probe starts succeeding.  
+
 If you want your Container to be able to take itself down for maintenance, you can specify a readiness probe.  
 Note that if you just want to be able to drain requests when the Pod is deleted, you do not necessarily need a readiness probe.  
+
 - Restart policy
-A PodSpec has a restartPolicy field with possible values:  
+A PodSpec has a restartPolicy field with possible values, The default value is Always:  
   - Always
   - OnFailure
   - Never.   
 
-The default value is Always.  
 restartPolicy applies to all Containers in the Pod.   
 restartPolicy only refers to restarts of the Containers by the kubelet on the same node.  
 Failed Containers that are restarted by the kubelet are restarted with an exponential back-off delay (10s, 20s, 40s …) capped at five minutes, and is reset after ten minutes of successful execution. **As discussed in the Pods document, once bound to a node, a Pod will never be rebound to another node.**  
 
-- Pod lifetime  
+### Pod lifetime  
 In general, Pods do not disappear until someone destroys them. This might be a human or a controller.  
 The only exception to this rule is that Pods with a phase of Succeeded or Failed for more than some duration (determined by the master) will expire and be automatically destroyed.(Pod GC)  
 If a node dies or is disconnected from the rest of the cluster, Kubernetes applies a policy for setting the phase of all Pods on the lost node to Failed.  
