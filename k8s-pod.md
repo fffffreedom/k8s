@@ -95,7 +95,7 @@ readiness probe in the spec means that the Pod will start without receiving any 
 If you want your Container to be able to take itself down for maintenance, you can specify a readiness probe.  
 Note that if you just want to be able to drain requests when the Pod is deleted, you do not necessarily need a readiness probe.  
 
-- Restart policy
+### Restart policy
 A PodSpec has a restartPolicy field with possible values, The default value is Always:  
   - Always
   - OnFailure
