@@ -52,13 +52,13 @@ spec:
 ```
 
 ### label和selector的关系？
-  - .metadata.labels AND .spec.template.metadata.labels  
-  The ReplicaSet can itself have labels (.metadata.labels).  
-  Typically, you would set these the same as the .spec.template.metadata.labels.  
-  However, they are allowed to be different, and the .metadata.labels do not affect the behavior of the ReplicaSet.  
+  - `.metadata.labels` AND `.spec.template.metadata.labels`  
+  The ReplicaSet can itself have labels (`.metadata.labels`).  
+  Typically, you would set these the same as the `.spec.template.metadata.labels`.  
+  However, they are allowed to be different, and the `.metadata.labels` do not affect the behavior of the ReplicaSet.  
 
-  - .spec.template.metadata.labels and .spec.selector  
-  **The .spec.template.metadata.labels must match the .spec.selector, or it will be rejected by the API.**  
+  - `.spec.template.metadata.labels` and `.spec.selector`  
+  **The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will be rejected by the API.**  
 
 ### 能不能手动创建带有相同label的Pod?
 Also you should not normally create any pods whose labels match this selector:  
@@ -85,8 +85,33 @@ You can delete a ReplicaSet without affecting any of its pods, using kubectl del
 When using the REST API or go client library, simply delete the ReplicaSet object.  
 
 Once the original is deleted, you can create a new ReplicaSet to replace it. 
-As long as the old and new .spec.selector are the same, then the new one will adopt the old pods. 
+As long as the old and new `.spec.selector` are the same, then the new one will adopt the old pods. 
 However, it will not make any effort to make existing pods match a new, different pod template. 
 To update pods to a new spec in a controlled way, use a rolling update.
 
+### Isolating pods from a ReplicaSet
+Pods may be removed from a ReplicaSet’s target set by changing their labels. This technique may be used to remove pods from service for debugging, data recovery, etc.  
+
+## ReplicaSet as an Horizontal Pod Autoscaler Target
+A ReplicaSet can also be a target for Horizontal Pod Autoscalers (HPA). That is, a ReplicaSet can be auto-scaled by an HPA.   
+
+针对上面的rs，可以创建一个`HorizontalPodAutoscaler`资源对象：  
+```
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend-scaler
+spec:
+  scaleTargetRef:
+    kind: ReplicaSet
+    name: frontend
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+```  
+
+也可使用命令来完成同样的任务：  
+```
+kubectl autoscale rs frontend
+```
 
