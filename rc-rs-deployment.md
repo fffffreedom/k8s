@@ -5,6 +5,7 @@ rs is short for replica set
 
 A ReplicationController ensures that a specified number of pod replicas are running at any one time.  
 ReplicaSet is the next-generation Replication Controller.  
+A Deployment controller provides declarative updates for Pods and ReplicaSets.  
 
 它们在Label selector上的的区别是： 
 - rc 只支持基于等式的Label selector(equality-based selector)  
@@ -155,4 +156,8 @@ The ReplicationController simply ensures that the desired number of pods matches
 其它功能会有其它controller来完成！  
 
 # Deployments
+
+> https://github.com/fffffreedom/k8s/blob/master/deployment.md  
+
+
 
