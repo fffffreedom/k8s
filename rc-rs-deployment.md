@@ -137,9 +137,9 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 除了kind字段，和rs的spec基本上一样。
 
 ## rc的具备的功能
-  - Rescheduling
-  - Scaling
-  - Rolling updates
+ - Rescheduling
+ - Scaling
+ - Rolling updates  
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.  
 
 ## Using ReplicationControllers with Services
@@ -148,7 +148,11 @@ Multiple ReplicationControllers can sit behind a single service, so that, for ex
 A ReplicationController will never terminate on its own, but it isn’t expected to be as long-lived as services. Services may be composed of pods controlled by multiple ReplicationControllers, and it is expected that many ReplicationControllers may be created and destroyed over the lifetime of a service.  
 
 ## Writing programs for Replication
+ReplicationController适合用来创建stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the RabbitMQ work queues, as opposed to static/one-time customization of the configuration of each pod, 
+
 ## Responsibilities of the ReplicationController
+The ReplicationController simply ensures that the desired number of pods matches its label selector and are operational.   
+其它功能会有其它controller来完成！  
 
 # Deployments
 
