@@ -1,14 +1,21 @@
 # rc-rs-deployment
 ## 关系
-rc is replication controller  
-rs is replica set  
-deployment is deployment  
-rs是“下一代rc”，它们唯一的区别是： 
+rc is short for replication controller  
+rs is short for replica set    
+
+A ReplicationController ensures that a specified number of pod replicas are running at any one time.  
+ReplicaSet is the next-generation Replication Controller.  
+
+它们在Label selector上的的区别是： 
 - rc 只支持基于等式的Label selector(equality-based selector)  
 - rs 即支持基于等式的Label selector，又支持基于集合的Label selector(set-based selector)  
 
+还有就是rs不支持rolling-update命令，如果你需要升级你的应用，那么应该使用deployment！  
+  
 ## 何时使用deployment
 如果你需要升级你的应用，那么应该使用deployment！  
+如果你需要升级你的应用，那么应该使用deployment！ 
+如果你需要升级你的应用，那么应该使用deployment！ 
 
 deployment是一个更高层的资源，它使用rs来形成一整套Pod创建、删除、更新的编排机制。
 deployment相对于rc一个最大升级是我们可以随时知道当前Pod“部署”的进度。  
@@ -18,6 +25,7 @@ deployment相对于rc一个最大升级是我们可以随时知道当前Pod“�
 ## 何时使用rs
 您需要自定义更新编排或根本不需要更新。  
 
+# ReplicaSet
 ## write a rs spec
 ```
 apiVersion: extensions/v1beta1
@@ -114,4 +122,33 @@ spec:
 ```
 kubectl autoscale rs frontend
 ```
+
+# ReplicationController
+A ReplicationController ensures that a specified number of pod replicas are running at any one time.  
+
+To list all the pods that belong to the ReplicationController in a machine readable form.  
+```
+$ pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
+echo $pods
+nginx-3ntk0 nginx-4ok8v nginx-qrm3m
+```
+
+## Writing a ReplicationController Spec
+除了kind字段，和rs的spec基本上一样。
+
+## rc的具备的功能
+  - Rescheduling
+  - Scaling
+  - Rolling updates
+The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.  
+
+## Using ReplicationControllers with Services
+Multiple ReplicationControllers can sit behind a single service, so that, for example, some traffic goes to the old version, and some goes to the new version.  
+
+A ReplicationController will never terminate on its own, but it isn’t expected to be as long-lived as services. Services may be composed of pods controlled by multiple ReplicationControllers, and it is expected that many ReplicationControllers may be created and destroyed over the lifetime of a service.  
+
+## Writing programs for Replication
+## Responsibilities of the ReplicationController
+
+# Deployments
 
