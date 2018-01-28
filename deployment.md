@@ -50,7 +50,7 @@ nginx-deployment-431080787-sdmp5   1/1       Running   0          49s       app=
 ```
 
 ## rs的命名格式  
-`[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`  
+`[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`  
 The pod-template-hash label is added by the Deployment controller to every ReplicaSet that a Deployment creates or adopts. 
 Do not change this label !!!  
 
