@@ -183,7 +183,7 @@ nginx-deployment-431080787-57xcr   1/1       Running   0          4m        app=
 nginx-deployment-431080787-bjtxz   1/1       Running   0          4m        app=nginx,pod-template-hash=431080787
 ```
 
-## Scaling a Deployment
+### Scaling a Deployment
 pod扩缩容：  
 ```
 [root@k8s-master deployment]# kubectl scale deployment nginx-deployment --replicas=6
@@ -198,7 +198,7 @@ nginx-deployment-431080787-l6wxt   1/1       Running   0          3m        app=
 nginx-deployment-431080787-pgphq   1/1       Running   0          3m        app=nginx,pod-template-hash=431080787
 ```
 
-## Proportional scaling（比例缩放）
+### Proportional scaling（比例缩放）
 RollingUpdate Deployments支持同时运行多个版本的app。当你或者一个autoscaler对一个处于rollout（正在进行或暂停）的Deployment扩缩容时，
 那么Deployment控制器将把缩放副本数（replicas）按比例地分配现有活动的ReplicaSets（ReplicaSets with Pods），以降低风险。  
 说白了就是，当一个Deployment正在执行时，你或者autoscaler又要去更新pod的replica数，假定是扩容，从10扩到15，那这个时候，该怎么分配pod数？  
@@ -223,7 +223,7 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## Pausing and Resuming a Deployment
+### Pausing and Resuming a Deployment
 You can pause a Deployment before triggering one or more updates and then resume it. 
 This will allow you to apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.  
 意思是说，在升级之前，我们可以先暂停Deployment，做一系列的升级更新，然后再恢复Deployment；  
@@ -232,6 +232,13 @@ This will allow you to apply multiple fixes in between pausing and resuming with
 $ kubectl rollout pause deployment/nginx-deployment
 $ kubectl set resources deployment nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
 ```
+
+#### 理解rollout pause和resume
+> http://blog.csdn.net/WaltonWang/article/details/77461697?locationNum=5&fps=1  
+
+或许很多人至今还会这么觉得：整个滚动更新的过程中，一旦用户执行了kubectl rollout pause deploy/frontend后，正在执行的滚动流程就会立刻停止，然后用户执行kubectl rollout resume deploy/frontend就会继续未完成的滚动更新。那你就大错特错了！  
+
+kubectl rollout pause只会用来停止触发下一次rollout。什么意思呢？ 上面描述的这个场景，正在执行的滚动历程是不会停下来的，而是会继续正常的进行滚动，直到完成。等下一次，用户再次触发rollout时，Deployment就不会真的去启动执行滚动更新了，而是等待用户执行了kubectl rollout resume，流程才会真正启动执行。  
 
 ## Deployment status
 - Progressing Deployment  
