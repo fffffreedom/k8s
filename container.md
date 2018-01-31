@@ -110,7 +110,7 @@ Executes an HTTP request against a specific endpoint on the Container.
 hook至少被掉用一次，这意味着对于任何给定的事件可以多次调用一个钩子，对于PostStart or PreStop也是一样，在于hook是否正确处理了事件。  
 
 ### Debugging Hook handlers
-The logs for a Hook handler are not exposed in Pod events, If a handler fails for some reason, it broadcasts an event.  
+The logs for a Hook handler are not exposed in Pod events, If a handler fails for some reason, it broadcasts an event.  
 就是说出错时广播事件！  
 
 **For PostStart, this is the FailedPostStartHook event, and for PreStop, this is the FailedPreStopHook event.**  
