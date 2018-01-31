@@ -84,3 +84,33 @@ FOO_SERVICE_PORT=<the port the service is running on>
 Services have dedicated IP addresses and are available to the Container via DNS, if DNS addon is enabled.  
 
 ## Container Lifecycle Hooks
+### Container hooks
+There are two hooks that are exposed to Containers:  
+
+#### PostStart
+This hook executes immediately after a container is created. However, there is **no guarantee** that the hook will execute before the container ENTRYPOINT. No parameters are passed to the handler.  
+
+#### PreStop
+This hook is called immediately before a container is terminated. It is blocking, meaning it is synchronous, so it must complete before the call to delete the container can be sent. No parameters are passed to the handler.  
+A more detailed description of the termination behavior can be found in [Termination of Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods).  
+
+### Hook handler implementations
+Containers can access a hook by implementing and registering a handler for that hook. There are two types of hook handlers that can be implemented for Containers:  
+- Exec  
+Executes a specific command, such as pre-stop.sh, inside the cgroups and namespaces of the Container. Resources consumed by the command are counted against the Container.  
+- HTTP  
+Executes an HTTP request against a specific endpoint on the Container.  
+
+### Hook handler execution
+`PostStart hook`和`ENTRYPOINT`是异步执行，如果hook执行时间太久，container不会达到`running`状态；  
+`PreStop hook`也一样，如果hook执行时间太久，container会一直处于`Terminating`状态，直到超时`terminationGracePeriodSeconds`，被杀掉。  
+如果hook运行失败，container都将被杀。  
+
+### Hook delivery guarantees
+hook至少被掉用一次，这意味着对于任何给定的事件可以多次调用一个钩子，对于PostStart or PreStop也是一样，在于hook是否正确处理了事件。  
+
+### Debugging Hook handlers
+The logs for a Hook handler are not exposed in Pod events, If a handler fails for some reason, it broadcasts an event.  
+就是说出错时广播事件！  
+
+**For PostStart, this is the FailedPostStartHook event, and for PreStop, this is the FailedPreStopHook event.**  
