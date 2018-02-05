@@ -123,6 +123,11 @@ init和app container相似，除了：
 - init总是运行到结束；  
 - init必须串行执行，即只有在上一个init container成功运行完成，下一个init才能开始运行。  
 
+如果pod的init container执行失败，k8s会不断地重启pod，直到init container执行成功；但如果pod的`restartPolicy`为`Never`，则不会被重启。  
+
+### 返回状态
+The status of the init containers is returned in `status.initContainerStatuses` field as an array of the container statuses (similar to the `status.containerStatuses` field).  
+
 
 
 
