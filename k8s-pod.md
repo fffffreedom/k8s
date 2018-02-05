@@ -107,6 +107,22 @@ Failed Containers that are restarted by the kubelet are restarted with an expone
 
 ### Pod lifetime  
 In general, Pods do not disappear until someone destroys them. This might be a human or a controller.  
-The only exception to this rule is that Pods with a phase of Succeeded or Failed for more than some duration (determined by the master) will expire and be automatically destroyed.(Pod GC)  
+The only exception to this rule is that Pods with a phase of Succeeded or Failed for more than some duration (determined by the master) will expire and be automatically destroyed.(Pod GC)  
 If a node dies or is disconnected from the rest of the cluster, Kubernetes applies a policy for setting the phase of all Pods on the lost node to Failed.  
+
+### pod状态转换
+TODO  
+
+## Init Containers
+1.6 beta版本之前，可以通过annotations来指定init container的信息；且annotations指定的值会覆盖PodSpec field该在1.6版本之后，这种方式已经不支持了，只支持在PodSpec中指定，具体格式，下面给出。  
+
+### Understanding Init Containers  
+一个Pod里可以包含一个或者多个init container，它们在app container运行之前运行，进行初始化工作。  
+
+init和app container相似，除了：  
+- init总是运行到结束；  
+- init必须串行执行，即只有在上一个init container成功运行完成，下一个init才能开始运行。  
+
+
+
 
