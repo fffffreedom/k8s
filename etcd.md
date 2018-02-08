@@ -6,7 +6,7 @@ https://coreos.com/etcd/docs/latest/op-guide/security.html
 https://coreos.com/os/docs/latest/generate-self-signed-certificates.html  
 https://coreos.com/etcd/docs/latest/op-guide/configuration.html  
 
-github
+github  
 https://github.com/coreos/etcd/blob/master/Documentation/op-guide/container.md  
 
 初试ETCD  
