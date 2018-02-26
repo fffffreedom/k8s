@@ -22,7 +22,7 @@ https://kubernetes.io/docs/getting-started-guides/scratch/  
 
 ## ansible deployment
 https://github.com/kubernetes-incubator/kubespray  
-https://github.com/kubernetes/contrib/tree/master/ansible  
+https://github.com/kubernetes/contrib  
 ## Kubernetes单机安装部署
 https://www.cnblogs.com/edisonxiang/p/6911994.html
 ## 在本机启动单机版k8s
