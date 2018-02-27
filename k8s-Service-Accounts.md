@@ -17,7 +17,7 @@ Processes in containers inside pods can also contact the apiserver. When they do
 
 ### 查看默认的service account
 
-**Every namespace has a default service account resource called default. **
+**Every namespace has a default service account resource called default.**  
 You can list this and any other serviceAccount resources in the namespace with this command:  
 ```
 $ kubectl get serviceAccounts
