@@ -40,6 +40,45 @@ spec:
       name: emptydir
 ```
 
+查看Volume情况：  
+```
+docker inspect -f '{{json .Mounts}}' 624175c09a00 | jq .
+[
+  {
+    "Source": "/var/lib/kubelet/pods/e9d5d076-2010-11e8-99b6-fa163e4314ee/containers/emptydir/4ffa69d4",
+    "Destination": "/dev/termination-log",
+    "Mode": "",
+    "RW": true,
+    "Propagation": "rprivate"
+  },
+  {
+    "Source": "/var/lib/kubelet/pods/e9d5d076-2010-11e8-99b6-fa163e4314ee/volumes/kubernetes.io~empty-dir/emptydir",
+    "Destination": "/data",
+    "Mode": "",
+    "RW": true,
+    "Propagation": "rprivate"
+  },
+  {
+    "Source": "/var/lib/kubelet/pods/e9d5d076-2010-11e8-99b6-fa163e4314ee/volumes/kubernetes.io~secret/default-token-fl97p",
+    "Destination": "/var/run/secrets/kubernetes.io/serviceaccount",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Source": "/var/lib/kubelet/pods/e9d5d076-2010-11e8-99b6-fa163e4314ee/etc-hosts",
+    "Destination": "/etc/hosts",
+    "Mode": "",
+    "RW": true,
+    "Propagation": "rprivate"
+  }
+]
+
+```
+
+当pod终止后，/var/lib/kubelet/pods/e9d5d076-2010-11e8-99b6-fa163e4314ee/volumes/kubernetes.io~empty-dir/emptydir目录将被删除，
+里面的文件自然也就不存在了！  
+
 ### hostPath
 
 ```
