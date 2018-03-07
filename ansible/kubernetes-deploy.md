@@ -5,6 +5,10 @@
 https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-VERSION.md  
 https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md  
 
+## 证书
+https://kubernetes.io/cn/docs/concepts/cluster-administration/certificates/  
+https://kubernetes.io/docs/concepts/cluster-administration/certificates/  
+
 ## reference
 
 https://github.com/gjmzj/kubeasz  
