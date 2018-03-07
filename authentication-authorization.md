@@ -25,6 +25,68 @@
 
 > https://kubernetes.io/docs/admin/authentication/
 
+#### Users in Kubernetes
+
+所有的k8s集群有两类用户：service accounts managed by Kubernetes, and normal users.  
+service account（SA）由k8s管理的，而普通用户由独立的外部服务管理。  
+
+Kubernetes does not have objects which represent normal user accounts. Regular users cannot be added to a cluster through an API call.  
+**即k8s没有代码普通用户的对象，不能通过API调用来给集群添加普通用户！**  
+
+service account是由k8s API管理的的用户，它们和特定的namespace绑定，可以由API server自动创建，或者通过API调用手动创建。  
+
+Service accounts are tied to a set of credentials stored as Secrets, which are mounted into pods allowing in-cluster processes to talk to the Kubernetes API.  
+
+SA是给Pod提供身份证明，使用集群中的Pod进程可以访问K8s的API。  
+
+API requests are tied to either a normal user or a service account, or are treated as anonymous requests. This means every process inside or outside the cluster, from a human user typing kubectl on a workstation, to kubelets on nodes, to members of the control plane, must authenticate when making requests to the API server, or be treated as an anonymous user. 
+
+API request分为三类：  
+- normal user
+- service account
+- anonymous request
+
+#### Authentication strategies
+
+Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to authenticate API requests through authentication plugins.  
+
+Kubernetes使用客户端证书，承载令牌，**身份验证代理**或HTTP基本身份验证来通过身份验证插件对API请求进行身份验证。  
+
+As HTTP requests are made to the API server, plugins attempt to associate the following attributes with the request:  
+- Username 
+- UID
+- Groups
+- Extra fields
+
+All values are opaque to the authentication system and only hold significance when interpreted by an authorizer.  
+You can enable multiple authentication methods at once. You should usually use at least two methods:  
+
+- service account tokens for service accounts
+- at least one other method for user authentication
+
+当多个认证模块被使用时，如果第一个模块认证成功，就不会再进行认证，API server不能保证最先使用哪个认证模块。  
+
+The system:authenticated group is included in the list of groups for all authenticated users.  
+
+Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc) can be accomplished using an **authenticating proxy or the authentication webhook.**  
+
+- X509 Client Certs
+- Static Token File
+- Bootstrap Tokens
+- Static Password File
+- Static Password File
+- Service Account Tokens
+- OpenID Connect Tokens
+- Webhook Token Authentication
+- Authenticating Proxy
+- Keystone Password
+
+#### Anonymous requests
+
+When enabled, requests that are not rejected by other configured authentication methods are treated as anonymous requests, and given a username of system:anonymous and a group of system:unauthenticated.  
+
+apiserver的`--anonymous-auth`选项使能！  
+
 ### Authorization
 
 > https://kubernetes.io/docs/admin/authorization/
