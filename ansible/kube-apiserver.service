@@ -1,0 +1,55 @@
+# kube-apiserver
+
+```
+{% macro initial_etcd3_cluster() -%}
+{% for host in groups['masters'] -%}
+  https://{{ host }}:{{ etcd3_client_port }}
+  {%- if not loop.last -%},{%- endif -%}
+{%- endfor -%}
+{% endmacro -%}
+
+
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/kube-apiserver \
+  --admission-control=NamespaceLifecycle,ServiceAccount,LimitRanger,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds \
+  --advertise-address={{ inventory_hostname }} \
+  --secure-port=6443 \
+  --insecure-bind-address={{ inventory_hostname }} \
+  --insecure-port=8080 \
+  --audit-log-maxage=30 \
+  --audit-log-maxbackup=50 \
+  --audit-log-maxsize=200 \
+  --audit-log-path=/var/log/kube-apiserver/audit.log \
+  --authorization-mode=AlwaysAllow \
+  --bind-address={{ inventory_hostname }} \
+  --client-ca-file=/etc/kubernetes/certs/ca.crt \
+  --enable-garbage-collector \
+  --enable-swagger-ui \
+  --etcd-quorum-read=true \
+  --etcd-cafile=/etc/kubernetes/certs/ca.crt \
+  --etcd-certfile=/etc/kubernetes/certs/server.crt \
+  --etcd-keyfile=/etc/kubernetes/certs/server.key \
+  --etcd-servers={{ initial_etcd3_cluster() }} \
+  --service-account-key-file=/etc/kubernetes/certs/server.key  \
+  --tls-cert-file=/etc/kubernetes/certs/server.crt \
+  --tls-private-key-file=/etc/kubernetes/certs/server.key \
+  --service-cluster-ip-range=10.254.0.0/16  \
+  --service-node-port-range=8400-9999  \
+  --token-auth-file=/etc/kubernetes/tokens/known_tokens.csv \
+  --apiserver-count=3 \
+  --feature-gates=Accelerators=true \
+  --v=2
+Restart=on-failure
+RestartSec=5
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+```
