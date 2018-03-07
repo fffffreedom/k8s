@@ -70,10 +70,11 @@ The system:authenticated group is included in the list of groups for all authent
 
 Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc) can be accomplished using an **authenticating proxy or the authentication webhook.**  
 
+##### 认证方法
+
 - X509 Client Certs
 - Static Token File
 - Bootstrap Tokens
-- Static Password File
 - Static Password File
 - Service Account Tokens
 - OpenID Connect Tokens
