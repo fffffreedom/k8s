@@ -28,7 +28,7 @@
 
 #### Users in Kubernetes
 
-所有的k8s集群有两类用户：service accounts managed by Kubernetes, and normal users.  
+所有的k8s集群有两类用户：service accounts managed by Kubernetes, and normal users.  
 service account（SA）由k8s管理的，而普通用户由独立的外部服务管理。  
 
 Kubernetes does not have objects which represent normal user accounts. Regular users cannot be added to a cluster through an API call.  
@@ -43,8 +43,8 @@ SA是给Pod提供身份证明，使用集群中的Pod进程可以访问K8s的API
 API requests are tied to either a normal user or a service account, or are treated as anonymous requests. This means every process inside or outside the cluster, from a human user typing kubectl on a workstation, to kubelets on nodes, to members of the control plane, must authenticate when making requests to the API server, or be treated as an anonymous user. 
 
 API request分为三类：  
-- normal user
-- service account
+- normal user request
+- service account request
 - anonymous request
 
 #### Authentication strategies
@@ -71,7 +71,7 @@ The system:authenticated group is included in the list of groups for all authent
 
 Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc) can be accomplished using an **authenticating proxy or the authentication webhook.**  
 
-##### 认证方法
+#### 认证方法
 
 - X509 Client Certs
 - Static Token File
