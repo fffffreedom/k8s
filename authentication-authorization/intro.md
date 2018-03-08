@@ -23,7 +23,8 @@
 
 ### Authenticating
 
-> https://kubernetes.io/docs/admin/authentication/
+> https://kubernetes.io/docs/admin/authentication/  
+> https://k8smeetup.github.io/docs/admin/authentication/  
 
 #### Users in Kubernetes
 
