@@ -2,7 +2,7 @@
 
 > https://kubernetes.io/docs/admin/authorization/  
 
-在k8s中，你的请求在被授权（authorized ）之前，你需要先登录，即先通过认证（authenticated ）。  
+在k8s中，你的请求在被授权（authorized ）之前，你需要先登录，即先通过认证（authenticated）。  
 
 ## Determine Whether a Request is Allowed or Denied - apiserver
 
@@ -77,7 +77,23 @@ Kubernetes sometimes checks authorization for additional permissions using speci
 - Authentication layer checks for authorization of the impersonate verb on users, groups, and serviceaccounts in the core API group, 
 and the userextras in the authentication.k8s.io API group.  
 
-# Authorization Modules
+## Authorization Modules
+
+**授权有多个模块，如下，你可以选择多个授权模块。优先极按出现的顺序决定！  
+
+修改apiserver的启动参数： `--authorization-mode=MODE`  
+
+### AlwaysAllow ( apiserver的默认配置 )
+### AlwaysDeny
+### Node
+
+### ABAC
+### RBAC
+### Webhook
+
+
+
+
 
 
 
