@@ -79,7 +79,7 @@ and the userextras in the authentication.k8s.io API group.
 
 ## Authorization Modules
 
-**授权有多个模块，如下，你可以选择多个授权模块。优先极按出现的顺序决定！  
+**授权有多个模块，如下，你可以选择多个授权模块。优先极按出现的顺序决定！**  
 
 修改apiserver的启动参数： `--authorization-mode=MODE`  
 
