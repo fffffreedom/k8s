@@ -84,11 +84,27 @@ and the userextras in the authentication.k8s.io API group.
 修改apiserver的启动参数： `--authorization-mode=MODE`  
 
 ### AlwaysAllow ( apiserver的默认配置 )
+
 ### AlwaysDeny
+
 ### Node
 
-### ABAC
+> https://kubernetes.io/docs/admin/authorization/node/  
+
+Node authorization is a special-purpose authorization mode that specifically authorizes API requests made by kubelets.  
+
+To enable the Node authorizer, start the apiserver with **--authorization-mode=Node.**  
+
+### ABAC (Attribute-Based Access Control, 基于属性的访问控制)
+
+> https://kubernetes.io/docs/admin/authorization/abac/  
+
+For mode ABAC, also specify **--authorization-policy-file=SOME_FILENAME.**  
+
+The file format is one JSON object per line. There should be no enclosing list or map, just one map per line.  
+
 ### RBAC
+
 ### Webhook
 
 
