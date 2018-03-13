@@ -2,7 +2,7 @@
 
 ## good blog
 
-http://www.lijiaocn.com/tags/all.html    
+http://www.lijiaocn.com/categories/%E9%A1%B9%E7%9B%AE.html    
 https://my.oschina.net/jxcdwangtao/blog  
 
 ## video
