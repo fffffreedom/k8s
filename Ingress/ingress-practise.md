@@ -102,7 +102,9 @@ dashboard.work.me
 
 访问的组件过程：  
 ```
-nginx-ingress-controller pod ->　kubernetes-dashboard service -> kubernetes-dashboard pod
+nginx-ingress-controller pod 
+  ->　kubernetes-dashboard service 
+    -> kubernetes-dashboard pod
 ```
 
 ### 域名访问:NodePort
@@ -113,7 +115,10 @@ dashboard.work.me:NodePort
 
 访问的组件过程：  
 ```
-nginx-ingress-controller service -> nginx-ingress-controller pod ->　kubernetes-dashboard service -> kubernetes-dashboard pod
+nginx-ingress-controller service
+  -> nginx-ingress-controller pod 
+    -> kubernetes-dashboard service
+      -> kubernetes-dashboard pod
 ```
 
 ## other
