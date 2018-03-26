@@ -16,7 +16,7 @@ docker.io官方的nginx容器的DockerFile参考https://github.com/nginxinc/dock
 
 ## port
 
-k8s集群内部使用的端口（服务之间访问），尽管mysql容器暴露了3306端口(参考https://github.com/docker-library/mysql/的DockerFile) ,
+k8s集群内部使用的端口（服务之间访问），尽管mysql容器暴露了3306端口(参考https://github.com/docker-library/mysql/ 的DockerFile) ,
 但是集群内其他容器需要通过33306端口访问该服务，集群外部不能访问mysql服务，因为他没有配置NodePort类型。  
 
 ## port、nodePort总结
