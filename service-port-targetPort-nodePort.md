@@ -16,7 +16,7 @@ docker.io官方的nginx容器的DockerFile参考https://github.com/nginxinc/dock
 
 ## port
 
-kubernetes中的服务之间访问的端口，尽管mysql容器暴露了3306端口（参考https://github.com/docker-library/mysql/的DockerFile），
+kubernetes中的服务之间访问的端口（内部使用），尽管mysql容器暴露了3306端口(参考https://github.com/docker-library/mysql/的DockerFile) ,
 但是集群内其他容器需要通过33306端口访问该服务，外部机器不能访问mysql服务，因为他没有配置NodePort类型。  
 
 ## yaml
