@@ -20,6 +20,9 @@ Table of Solutions
 ## Creating a Custom Cluster from Scratch
 https://kubernetes.io/docs/getting-started-guides/scratch/  
 
+## 和我一步步部署 kubernetes 集群
+https://github.com/opsnull/follow-me-install-kubernetes-cluster  
+
 ## ansible deployment
 https://github.com/kubernetes-incubator/kubespray  
 https://github.com/kubernetes/contrib  
