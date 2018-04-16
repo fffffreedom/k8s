@@ -38,14 +38,14 @@ service account是由k8s API管理的的用户，它们和特定的namespace绑�
 
 Service accounts are tied to a set of credentials stored as Secrets, which are mounted into pods allowing in-cluster processes to talk to the Kubernetes API.  
 
-SA是给Pod提供身份证明，使用集群中的Pod进程可以访问K8s的API。  
+SA是给Pod提供身份证明，存储在Secrets文件中，pod启动时，Secrets会被挂载pod中，使Pod进程可以访问K8s的API。  
 
 API requests are tied to either a normal user or a service account, or are treated as anonymous requests. This means every process inside or outside the cluster, from a human user typing kubectl on a workstation, to kubelets on nodes, to members of the control plane, must authenticate when making requests to the API server, or be treated as an anonymous user. 
 
 API request分为三类：  
 - normal user request
 - service account request
-- anonymous request
+- anonymous request（除了上述两种request）
 
 #### Authentication strategies
 
