@@ -2,6 +2,9 @@
 
 ## good blog
 
+比较完整的博客，包含了kubernetes、microservice、cloud native等方面的知识    
+https://jimmysong.io/kubernetes-handbook/  
+
 http://www.lijiaocn.com/categories/%E9%A1%B9%E7%9B%AE.html    
 https://my.oschina.net/jxcdwangtao/blog  
 
