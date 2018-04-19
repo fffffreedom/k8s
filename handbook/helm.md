@@ -45,7 +45,7 @@ Helm 把Kubernetes资源(比如deployments、services或 ingress等) 打包到�
 ## helm 架构
 
 helm架构图如下：  
-[helm arch](!https://github.com/fffffreedom/Pictures/blob/master/handbook/helm-arch.jpg)
+[!helm arch](https://github.com/fffffreedom/Pictures/blob/master/handbook/helm-arch.jpg)
 
 ## helm 组成
 - Helm has two parts: a client (helm) and a server (tiller)  
