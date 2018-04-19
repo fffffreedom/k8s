@@ -4,6 +4,8 @@
 
 Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
 
+Helm是一个用来管理Kubernetes charts的工具，charts是预先配置好的 Kubernetes资源包！
+
 Use Helm to:
 
 - Find and use popular software packaged as Kubernetes charts  
@@ -12,7 +14,9 @@ Use Helm to:
 - Intelligently manage your Kubernetes manifest files  
 - Manage releases of Helm packages  
 
-Helm is a tool that streamlines installing and managing Kubernetes applications. Think of it like apt/yum/homebrew for Kubernetes.
+Helm is a tool that streamlines installing and managing Kubernetes applications. Think of it like apt/yum/homebrew for Kubernetes.  
+
+用来简化Kubernetes应用的部署和管理，可以把Helm比作CentOS的yum工具，charts则为rpm包。  
 
 - Helm has two parts: a client (helm) and a server (tiller)  
 - Tiller runs inside of your Kubernetes cluster, and manages releases (installations) of your charts.  
@@ -40,11 +44,29 @@ Helm 把Kubernetes资源(比如deployments、services或 ingress等) 打包到�
 helm架构图如下：  
 []
 
-- Helm has two parts: a client (helm) and a server (tiller)  
+## helm 组成
+- Helm has two parts: a client (helm) and a server (tiller)  
 - Tiller runs inside of your Kubernetes cluster, and manages releases (installations) of your charts.  
 - Helm runs on your laptop, CI/CD, or wherever you want it to run.  
 
-## helm 用途
+## helm 安装 -- kubeadm安装的k8s cluster
+
+### helm
+```
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+sh get_helm.sh
+```
+
+### tiller
+```
+helm init
+```
+
+## 搭建私有charts仓库
+```
+helm serve --address 0.0.0.0:8879 --repo-path .
+```
+可以通过helm serve所运行主机的IP:8879来访问Charts仓库。  
 
 ## 参考资料
 
