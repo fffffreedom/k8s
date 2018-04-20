@@ -14,7 +14,7 @@ Deployment滚动更新在pod的template (that is, .spec.template)发生改变时
 
 - 直接更新image  
 ```
-kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
 ```
 
 - kubectl edit，并保存
@@ -86,6 +86,10 @@ The value cannot be 0 if MaxUnavailable is 0.
 `kubectl rollout pause`只会用来停止触发下一次rollout。什么意思呢？ 上面描述的这个场景，正在执行的滚动历程是不会停下来的，
 而是会继续正常的进行滚动，直到完成。等下一次，用户再次触发rollout时，Deployment就不会真的去启动执行滚动更新了，
 而是等待用户执行了`kubectl rollout resume`，流程才会真正启动执行。即pasue是用来禁止触发rollout的？（try it）  
+
+kubernetes官网：  
+You can pause a Deployment before triggering one or more updates and then resume it. 
+This will allow you to apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 ## --record和rollback（回滚）
 
