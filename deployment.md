@@ -62,6 +62,15 @@ Do not change this label !!!
 ```
 
 ## Updating a Deployment
+
+Note: A Deployment’s rollout is triggered if and only if the Deployment’s pod template (that is, .spec.template) is changed, 
+for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, 
+do not trigger a rollout.
+
+Deployment的滚动更新何时被触发？  
+只有在`pod template (that is, .spec.template)`发生改变时，例如，template的labels或者image被更新。  
+其它的更新，如扩缩容，是不能触发滚动更新的！
+
 ### 更新Deployment的方法
 可以使用多种方法更新一个Deployment：  
 ```
