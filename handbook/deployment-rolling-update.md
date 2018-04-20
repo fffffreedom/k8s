@@ -127,4 +127,4 @@ rollout history和ReplicaSet的对应关系，可以在kubectl describe rs $RSNA
 
 [kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 [聊聊你可能误解的Kubernetes Deployment滚动更新机制](https://blog.csdn.net/WaltonWang/article/details/77461697?locationNum=5&fps=1)
-
+[Kubernetes中的Rolling Update服务滚动升级](https://jimmysong.io/posts/kubernetes-service-rolling-update/)
