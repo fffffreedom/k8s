@@ -1,6 +1,6 @@
 # taint and toleration
 
-Node affinity（节点亲合性）是吸引Pod调度到Node的一种属性，可以硬性要求或者是建议性要求；而taint是阻止pod调度到相应的节点！
+Node affinity（节点亲合性）是吸引Pod调度到Node的一种属性，可以硬性要求或者是建议性要求；而taint与其相反，是阻止pod调度到相应node的一种机制！
 
 taint和toleration是污点和容忍的含义，当给node打上taint（就是一个键值对及影响），只有具有相应toleration配置的pod，才可能调度到这些Node。
 
@@ -13,8 +13,8 @@ taint由三部分组成，格式为`key=value:taint effect`，key和value是一�
  - key  
  - value  
  - taint effect  
-  - NoSchedule：表示pod不能调度到node
-  - NoExecute：表示pod不能在node上运行
+  - NoSchedule：表示pod不能调度到node  
+  - NoExecute：表示pod不能在node上运行  
 
 ### 打污点和去除污点
 
