@@ -131,6 +131,56 @@ NoExecute的taint effect会影响已经运行在node上的pod，
 - 能容忍污点的pod,并且没有指定`tolerationSeconds`配置,pod将会一直运行在该node  
 - 能容忍污点的pod,但指定了`tolerationSeconds`配置,pod将会在node上继续运行`tolerationSeconds`秒后,被驱逐出node  
 
+## built-in taints
+
+Kubernetes 1.6 has alpha support for representing node problems. In other words, **the node controller automatically taints a node when certain condition is true**. The built-in taints currently include:  
+
+- node.kubernetes.io/not-ready: Node is not ready. This corresponds to the NodeCondition Ready being “False”.  
+- node.alpha.kubernetes.io/unreachable: Node is unreachable from the node controller. This corresponds to the NodeCondition Ready being “Unknown”.  
+- node.kubernetes.io/out-of-disk: Node becomes out of disk.  
+- node.kubernetes.io/memory-pressure: Node has memory pressure.  
+- node.kubernetes.io/disk-pressure: Node has disk pressure.  
+- node.kubernetes.io/network-unavailable: Node’s network is unavailable.  
+- node.cloudprovider.kubernetes.io/uninitialized: When kubelet is started with “external” cloud provider, it sets this taint on a node to mark it as unusable. When a controller from the cloud-controller-manager initializes this node, kubelet removes this taint.  
+
+When the TaintBasedEvictions alpha feature is enabled (you can do this by including TaintBasedEvictions=true in --feature-gates for Kubernetes controller manager, such as --feature-gates=FooBar=true,TaintBasedEvictions=true), the taints are automatically added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes based on the Ready NodeCondition is disabled. 
+
+**Note: To maintain the existing rate limiting behavior of pod evictions due to node problems, the system actually adds the taints in a rate-limited way. This prevents massive pod evictions in scenarios such as the master becoming partitioned from the nodes.**
+
+This alpha feature, in combination with tolerationSeconds, allows a pod to specify how long it should stay bound to a node that has one or both of these problems.
+
+For example, an application with a lot of local state might want to stay bound to node for a long time in the event of network partition, in the hope that the partition will recover and thus the pod eviction can be avoided. The toleration the pod would use in that case would look like
+
+```
+tolerations:
+- key: "node.alpha.kubernetes.io/unreachable"
+  operator: "Exists"
+  effect: "NoExecute"
+  tolerationSeconds: 6000
+```
+
+Note that Kubernetes automatically adds a toleration for node.kubernetes.io/not-ready with tolerationSeconds=300 unless the pod configuration provided by the user already has a toleration for node.kubernetes.io/not-ready. Likewise it adds a toleration for node.alpha.kubernetes.io/unreachable with tolerationSeconds=300 unless the pod configuration provided by the user already has a toleration for node.alpha.kubernetes.io/unreachable.
+
+These automatically-added tolerations ensure that the default pod behavior of remaining bound for 5 minutes after one of these problems is detected is maintained. The two default tolerations are added by the [DefaultTolerationSeconds admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
+
+DaemonSet pods are created with NoExecute tolerations for the following taints with no tolerationSeconds
+
+- node.alpha.kubernetes.io/unreachable  
+- node.kubernetes.io/not-ready  
+
+This ensures that DaemonSet pods are never evicted due to these problems, which matches the behavior when this feature is disabled.
+
+## Taint Nodes by Condition
+
+Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to Node conditions. When this feature is enabled (you can do this by including TaintNodesByCondition=true in the --feature-gates command line flag to the scheduler, such as --feature-gates=FooBar=true,**TaintNodesByCondition=true**), the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don’t affect what’s scheduled onto the Node. The user can choose to ignore some of the Node’s problems (represented as Node conditions) by adding appropriate Pod tolerations.
+
+To make sure that turning on this feature doesn’t break DaemonSets, starting in version 1.8, the DaemonSet controller automatically adds the following NoSchedule tolerations to all daemons:
+
+- node.kubernetes.io/memory-pressure  
+- node.kubernetes.io/disk-pressure  
+- node.kubernetes.io/out-of-disk (only for critical pods)  
+
+The above settings ensure backward compatibility, but we understand they may not fit all user’s needs, which is why cluster admin may choose to add arbitrary tolerations to DaemonSets.
 
 ## 参考资料
 
