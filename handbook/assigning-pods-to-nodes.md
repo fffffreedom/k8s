@@ -2,7 +2,7 @@
 
 通过一些机制，我们能控制pod的调度：只能调度到一类nodes，或者更倾向于调度到一类nodes!
 
-用很几种方法可以达到这一目的，且它们都依赖于[label selector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)。
+用几种方法可以达到这一目的，且它们都依赖于[label selector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)。
 
 在默认的情况下，scheduler会自动进行合理的安置，即把pod调度到集群中的各个node中（而不是全都在一个node上）；
 但在一些特殊情况下，我们需要控制pod的调度策略，比如将需要使用ssd的pod调度到有ssd的node上，或者将两个紧密相关的pod调度到同一个node上。
