@@ -51,6 +51,14 @@ Other extensions resources can be enabled by setting --runtime-config on apiserv
 --runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false
 ```
 
+### 查看 API 详细信息 (OpenAPI and Swagger definitions)
+
+Complete API details are documented using Swagger v1.2 and OpenAPI. 
+
+The Kubernetes apiserver (aka “master”) exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`.
+
+Starting with Kubernetes 1.10, OpenAPI spec is served in a single /openapi/v2 endpoint. The format-separated endpoints (/swagger.json, /swagger-2.0.0.json, /swagger-2.0.0.pb-v1, /swagger-2.0.0.pb-v1.gz) are deprecated and will get removed in Kubernetes 1.14.
+
 ## [API Client Libraries](https://kubernetes.io/docs/reference/client-libraries/)
 
 client libraries 分为两类：  
