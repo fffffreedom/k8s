@@ -30,7 +30,7 @@ kubectl create configmap NAME --from-file=[key=]/path/to/files ... --from-file=[
 - literal values
 
 ```
-kubectl create configmap NAME --from-literal=[key=]value ... --from-literal=[key=]value
+kubectl create configmap NAME --from-literal=key=value ... --from-literal=key=value
 ```
 
 ### yaml 文件
