@@ -37,8 +37,9 @@ spec:
     - "3600"
     imagePullPolicy: IfNotPresent
     volumeMounts:
-    - mountPath: /data
-      name: emptydir
+    - name: emptydir
+      mountPath: /data
+      
 ```
 
 查看Volume情况：  
@@ -100,8 +101,9 @@ spec:
     - "3600"
     imagePullPolicy: IfNotPresent
     volumeMounts:
-    - mountPath: /data
-      name: data
+    - name: data
+      mountPath: /data
+      
 ```
 
 ### rbd
