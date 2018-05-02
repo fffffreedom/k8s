@@ -102,4 +102,5 @@ kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"my
 
 ## 参考资料
 
-[configure-service-account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
+[configure-service-account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)  
+[pull-image-private-registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)  
