@@ -54,7 +54,7 @@ spec:
 
 ### Lifecycle of a volume and claim
 
-Provisioning ->　Binding　-> Using -> Storage Object in Use Protection -> Reclaiming
+Provisioning -> Binding -> Using -> Storage Object in Use Protection -> Reclaiming
 
 #### Provisioning
 
