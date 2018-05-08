@@ -252,11 +252,11 @@ In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used i
 
 A volume will be in one of the following phases:
 
-- Available – a free resource that is not yet bound to a claim  
-- Bound – the volume is bound to a claim  
-- Released – the claim has been deleted, but the resource is not yet reclaimed by the cluster  
-- Failed – the volume has failed its automatic reclamation  
-- The CLI will show the name of the PVC bound to the PV.  
+  - Available – a free resource that is not yet bound to a claim  
+  - Bound – the volume is bound to a claim  
+  - Released – the claim has been deleted, but the resource is not yet reclaimed by the cluster  
+  - Failed – the volume has failed its automatic reclamation  
+  - The CLI will show the name of the PVC bound to the PV.  
 
 ## PVC
 
@@ -284,12 +284,16 @@ spec:
 
 - accessModes  
 - volumeMode  
-- resources  
-- storageClassName  
+- resources    
 - selector  
 - storageClassName  
+
 A claim can request a particular class by specifying the name of a StorageClass using the attribute storageClassName. 
 Only PVs of the requested class, ones with the same storageClassName as the PVC, can be bound to the PVC.
+PVC 通过 storageClassName 属性来指定需要申请的特定的 storageClass，当 PV 的 storageClassName 和 PVC 的一样时，PV 才绑定到 PVC！
+
+
+
 
 ## PV支持的读写模式
 
