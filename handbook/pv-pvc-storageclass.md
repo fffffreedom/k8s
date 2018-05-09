@@ -72,17 +72,19 @@ When none of the static PVs the administrator created matches a user’s Persist
 the cluster may try to dynamically provision a volume specially for the PVC.   
 
 This provisioning is based on StorageClasses: the PVC must request a storage class and the administrator must have created 
-and configured that class in order for dynamic provisioning to occur. Claims that request the class "" effectively disable 
-dynamic provisioning for themselves.  
+and configured that class in order for dynamic provisioning to occur. 
+
+**Claims that request the class "" effectively disable dynamic provisioning for themselves.**
 
 To enable dynamic storage provisioning based on storage class.  
 **动态`Provisioning`依赖于`StorageClasses`！**  
 
 the cluster administrator needs to enable the `DefaultStorageClass` admission controller on the API server.  
 
-```
---enable-admission-plugins
-```
+|version|kube-apiserver flags|
+|-----------|-----------|
+|v1.10|--enable-admission-plugins=DefaultStorageClass,...|
+|v1.9|--admission-control=DefaultStorageClass,...|
 
 #### Binding
 
