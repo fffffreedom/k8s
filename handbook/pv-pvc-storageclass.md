@@ -292,8 +292,45 @@ A claim can request a particular class by specifying the name of a StorageClass 
 Only PVs of the requested class, ones with the same storageClassName as the PVC, can be bound to the PVC.
 PVC 通过 storageClassName 属性来指定需要申请的特定的 storageClass，当 PV 的 storageClassName 和 PVC 的一样时，PV 才绑定到 PVC！
 
+当然，PVC 并不一定要指定一个特定的 storaceClass, 把 storageClassName 配置成 “” 表明 PVC 要申请一个不带 class 的 PV。
 
+一个没有指定 storageClassName 配置项的 PVC 能申请什么样的 PV, 主要由 DefaultStorageClass admission plugin 是否被打开决定：  
+- 如果 admission plugin 被打开，管理员可能会指定一个 default StorageClass. 所有没有配置 storageClassName 的 PVC，只能绑定这个默认的 PV.
+（因为 admission plugin 自动给 PVC 添加 default storage class）。
+通过设置 `storageclass.kubernetes.io/is-default-class: true` 来指定这个默认的 StorageClass. 
+如果管理员没有指定 default StorageClass, 对于没有配置 storageClassName 的 PVC，集群不会作出相应，就像 admission plugin 被关闭了一样。
+如果指定了多个 default StorageClass，admission plugin 禁止创建任何 PVC.
 
+- 如果 admission plugin 被关闭，就不存 default StorageClass。所有没有配置 storageClassName 的 PVC，只能绑定没有 class 的 PV. 
+这种情况下，所有没有配置 storageClassName 的 PVC 可以等同于 storageClassName 被设置成 “” 的 PVC.
+
+> Note: Currently, a PVC with a non-empty selector can’t have a PV dynamically provisioned for it.
+
+In the past, the annotation volume.beta.kubernetes.io/storage-class was used instead of storageClassName attribute. This annotation is still working, however it won’t be supported in a future Kubernetes release.
+
+### Claims As Volumes
+
+```
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: myfrontend
+      image: dockerfile/nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
+```
+
+## Raw Block Volume Support
+
+### Writing Portable Configuration
 
 ## PV支持的读写模式
 
