@@ -1,4 +1,4 @@
-# inter
+# internet
 
 ## enabling proxy in terminal
 
@@ -14,6 +14,10 @@ export http_proxy=
 export https_proxy=
 ```
 
+## enabling vm to access oversea internet
+
+
 ## reference
 https://my.oschina.net/yihong/blog/813197
 https://www.jianshu.com/p/25ff66fd78c2
+https://www.jianshu.com/p/a7620f73c7f3
