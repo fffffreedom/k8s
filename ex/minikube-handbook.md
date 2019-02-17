@@ -45,8 +45,15 @@ Flags:
 
 Use "minikube [command] --help" for more information about a command.
 ```
-## Flags
-
+## IMPORTANT
+**start the specific minikube VM:**
+```
+minikube start -p VM_NAME
+```
+**set minikube VM profile:**
+```
+minikube profile yaml
+```
 ## minikube start
 run `minikube start -h` to see the useful args of minikube:
 ```
@@ -65,12 +72,11 @@ and more setting with memory and registry:
 ```
 minikube start --memory=4096 --registry-mirror=https://registry.docker-cn.com --kubernetes-version=v1.10.0
 ```
-**IMPORTANT:start the specific vm:**
-```
-minikube start -p VM_NAME
-```
-## minikube ip
+## minikube docker-env
+The command `minikube docker-env` returns a set of Bash environment variable exports to configure your local environment to re-use the Docker daemon inside the Minikube instance.
+- **`eval $(minikube docker-env)`**  
+- **`eval $(minikube docker-env -u)`**  
+reference:
+https://stackoverflow.com/questions/52310599/what-does-minikube-docker-env-mean
 
-## minikube ssh
 
-@
