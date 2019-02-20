@@ -5,7 +5,6 @@
 - 编写应用
 - 打包镜像
 - 部署应用
-- 应用管理
 
 ## 编写应用
 - 编写代码
@@ -43,7 +42,8 @@ CMD ["/hello_http"]
 ```
 docker build -t hello-http:v1 .
 ```
-## 创建deployment
+## 部署应用
+### 创建deployment
 ```
 kubectl run hello-http --image=hello-http:v1 --port=8080
 ```
@@ -63,7 +63,7 @@ bogon:hello jonny$ minikube service list
 | kube-system | kubernetes-dashboard | No node port |
 |-------------|----------------------|--------------|
 ```
-## 创建service并暴露服务
+### 创建service并暴露服务
 ```
 kubectl expose deployment hello-http --type=LoadBalancer
 
@@ -77,7 +77,7 @@ bogon:hello jonny$ minikube service list
 | kube-system | kubernetes-dashboard | No node port                |
 |-------------|----------------------|-----------------------------|
 ```
-## 打开服务（前面暴露了服务）
+### 打开服务（前面暴露了服务）
 ```
 minikube service hello-http
 ```
