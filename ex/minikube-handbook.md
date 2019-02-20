@@ -79,4 +79,38 @@ The command `minikube docker-env` returns a set of Bash environment variable exp
 reference:
 https://stackoverflow.com/questions/52310599/what-does-minikube-docker-env-mean
 
+## minikube addons
+```
+bogon:~ jonny$ minikube addons -h
+addons modifies minikube addons files using subcommands like "minikube addons enable heapster"
 
+Usage:
+  minikube addons SUBCOMMAND [flags]
+  minikube addons [command]
+
+Available Commands:
+  configure   Configures the addon w/ADDON_NAME within minikube (example: minikube addons configure registry-creds). For a list of available addons use: minikube addons list 
+  disable     Disables the addon w/ADDON_NAME within minikube (example: minikube addons disable dashboard). For a list of available addons use: minikube addons list 
+  enable      Enables the addon w/ADDON_NAME within minikube (example: minikube addons enable dashboard). For a list of available addons use: minikube addons list 
+  list        Lists all available minikube addons as well as their current statuses (enabled/disabled)
+  open        Opens the addon w/ADDON_NAME within minikube (example: minikube addons open dashboard). For a list of available addons use: minikube addons list 
+```
+minikube supports many addons, use `minikube addons` to manage addon in k8s cluster, it's very convenient!
+```
+bogon:~ jonny$ minikube addons list
+- addon-manager: enabled
+- coredns: enabled
+- dashboard: enabled
+- default-storageclass: enabled
+- efk: disabled
+- freshpod: disabled
+- heapster: disabled
+- ingress: disabled
+- kube-dns: disabled
+- metrics-server: disabled
+- nvidia-driver-installer: disabled
+- nvidia-gpu-device-plugin: disabled
+- registry: disabled
+- registry-creds: disabled
+- storage-provisioner: enabled
+```
