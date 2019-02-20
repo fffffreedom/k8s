@@ -43,7 +43,44 @@ CMD ["/hello_http"]
 ```
 docker build -t hello-http:v1 .
 ```
+## 创建deployment
+```
+kubectl run hello-http --image=hello-http:v1 --port=8080
+```
+这个时候查看一下delpyment和service：
+```
+bogon:hello jonny$ kubectl get svc 
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          3d
 
+bogon:hello jonny$ minikube service list
+|-------------|----------------------|--------------|
+|  NAMESPACE  |         NAME         |     URL      |
+|-------------|----------------------|--------------|
+| default     | hello-http           | No node port | <== 没有暴露服务
+| default     | kubernetes           | No node port |
+| kube-system | kube-dns             | No node port |
+| kube-system | kubernetes-dashboard | No node port |
+|-------------|----------------------|--------------|
+```
+## 创建service并暴露服务
+```
+kubectl expose deployment hello-http --type=LoadBalancer
+
+bogon:hello jonny$ minikube service list
+|-------------|----------------------|-----------------------------|
+|  NAMESPACE  |         NAME         |             URL             |
+|-------------|----------------------|-----------------------------|
+| default     | hello-http           | http://192.168.99.100:32718 | <== 已暴露服
+| default     | kubernetes           | No node port                |
+| kube-system | kube-dns             | No node port                |
+| kube-system | kubernetes-dashboard | No node port                |
+|-------------|----------------------|-----------------------------|
+```
+## 打开服务（前面暴露了服务）
+```
+minikube service hello-http
+```
 ## reference
 http://ju.outofmemory.cn/entry/366843  
 https://colobu.com/2015/10/12/create-minimal-golang-docker-images/  
