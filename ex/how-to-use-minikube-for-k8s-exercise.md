@@ -5,6 +5,7 @@
 - 编写应用
 - 打包镜像
 - 部署应用
+- 应用管理
 
 ## 编写应用
 - 编写代码
@@ -80,6 +81,16 @@ bogon:hello jonny$ minikube service list
 ### 打开服务（前面暴露了服务）
 ```
 minikube service hello-http
+```
+## 应用管理
+### 升级应用的镜像版本
+修改前面的源码：
+```
+fmt.Fprintln(w, "hello http again")
+```
+编译并打成好v2版本的镜像，运行升级的命令：
+```
+kubectl set image deployment/hello-http hello-http=hello-http:v1
 ```
 ## reference
 http://ju.outofmemory.cn/entry/366843  
