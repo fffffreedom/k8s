@@ -114,3 +114,6 @@ bogon:~ jonny$ minikube addons list
 - registry-creds: disabled
 - storage-provisioner: enabled
 ```
+## good papers
+Minikube - Kubernetes本地实验环境 https://yq.aliyun.com/articles/221687  
+
