@@ -7,16 +7,19 @@ https://kubernetes.io/docs/concepts/storage/storage-classes/
 https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 ```
 
-PersistentVolume types are implemented as plugins.
+PersistentVolume types are implemented as plugins. **PV is a cluster resource!**
 
-## PV and PVC
+## PV and PVC and StorageClass
 
 A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator.  
 A PersistentVolumeClaim (PVC) is a request for storage by a user.  
 
 Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than just size and 
 access modes, without exposing users to the details of how those volumes are implemented. 
-For these needs there is the `StorageClass` resource.  
+For these needs there is the `StorageClass` resource. 
+
+StorageClass
+
 
 ### 举个例子
 
