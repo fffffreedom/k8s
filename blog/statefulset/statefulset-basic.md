@@ -16,7 +16,7 @@ StatefulSets有如下特性：
 ### 稳定的、唯一的网络标识符
 statefulset中的pod拥有唯一索引和网络标识符，网络标识符指的是什么呢？  
 即为pod的hostname：`$(statefulset name)-$(ordinal)`，其中ordinal即为pod的索引；  
-稳定体现在：不管pod怎么调度，这的hostname都会保持不变。
+稳定体现在：不管pod怎么调度，pod的hostname都会保持不变。
 
 **这里有个问题，pod的IP变不变呢？** 答案是会变的，那怎么固定的访问它？ 该pod的A record是不变的！
 
@@ -47,9 +47,9 @@ statefulset中的pod拥有唯一索引和网络标识符，网络标识符指的
 
 ### 删除
 分两种情况：
-- Non-Cascading Delete
+- Non-Cascading Delete  
   删除statefulset，相应的pod不会被删除
-- Cascading Delete
+- Cascading Delete  
   删除statefulset，相应的pod会被删除，pod被删除的顺序和创建时相反
 
 ## statefulset更新策略
@@ -71,8 +71,8 @@ spec:
 - pod小于`partition`的分区：template更新，pod不会更新（可以Staging an Update）  
 通过这个特性，可以用来灰度发布或金丝雀发布。举个例子：  
 先给statefulset配置好参数，如上：`partition: 3`，假定一个名为web的statefulset的有3个pod：  
-- 当`partition`为3，pod的模板更新了，pod不会更新  
-- 当`partition`为2，pod的模板更新了，有一个pod会更新（web-2）  
+  - 当`partition`为3，pod的模板更新了，pod不会更新  
+  - 当`partition`为2，pod的模板更新了，有一个pod会更新（web-2）  
 
 ### statefulset的pod管理策略（Pod Management Policy）
 statefulset支持两种方式的pod管理策略，通过`.spec.podManagementPolicy`控制：
